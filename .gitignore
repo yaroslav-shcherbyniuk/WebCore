@@ -6,6 +6,7 @@
 
 /WebApplication/bin
 /WebApplication/obj
+/WebApplication/node_modules
 /WebApplication/WebApplication.xproj.user
 /WebApplication/project.lock.json
 
