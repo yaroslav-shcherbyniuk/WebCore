@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+
+/WebApplication/bin
+/WebApplication/obj
+/WebApplication/WebApplication.xproj.user
+/WebApplication/project.lock.json
+
+/WebApplicationTests/bin
+/WebApplicationTests/obj
+/WebApplicationTests/WebApplicationTests.xproj.user
+/WebApplicationTests/project.lock.json
