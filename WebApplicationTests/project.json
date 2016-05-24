@@ -1,10 +1,12 @@
 ﻿{
     "version": "1.0.0-*",
     "testRunner": "xunit",
-    "dependencies": {
-        "xunit": "2.1.0",
-        "dotnet-test-xunit": "1.0.0-rc2-build10015"
-    },
+  "dependencies":
+  {
+    "xunit": "2.1.0",
+    "WebApplication": "1.0.0-*",
+    "dotnet-test-xunit": "1.0.0-rc2-build10015"
+  },
     "frameworks": {
         "netcoreapp1.0": {
             "dependencies": {
