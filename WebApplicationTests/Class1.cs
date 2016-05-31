@@ -10,7 +10,8 @@ namespace WebApplicationTests
             Assert.Equal(4, Add(2, 2));
         }
 
-        [Fact(Skip = "Wrong implementation")]
+        //[Fact(Skip = "Wrong expectation")]
+        [Fact]
         public void FailingTest()
         {
             Assert.Equal(5, Add(2, 2));
