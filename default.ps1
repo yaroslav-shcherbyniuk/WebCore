@@ -68,7 +68,7 @@ Task Restore -description "Restores packages for all projects" {
 }
 
 Task Build -depends Restore -description "Build project" {
-    Exec -cmd { dotnet build $project }
+    Exec -cmd { dotnet build $project --version-suffix $versionSuffix }
 }
 
 Task UnitTest -depends Build -description "Runs unit tests" {
@@ -76,5 +76,5 @@ Task UnitTest -depends Build -description "Runs unit tests" {
 }
 
 Task Pack -depends Build {
-    Exec -cmd { dotnet pack $project -o .\pack  }
+    Exec -cmd { dotnet pack $project -o .\pack  --version-suffix $versionSuffix }
 }
