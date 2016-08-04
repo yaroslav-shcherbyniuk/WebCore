@@ -1,5 +1,6 @@
 Param(
     [int]$buildNumber = $env:BUILD_NUMBER,
+    [string]$tag = $null,
     [string]$http_proxy = $env:http_proxy,
 
     [string]$ArtifactoryUserName = $env:ArtifactoryUserName,
