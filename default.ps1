@@ -30,29 +30,10 @@ TaskSetup {
 }
 
 Task SetupArtifactory -description "Add Artifactory to nuget" `
-    -requiredVariables ArtifactoryUserName, ArtifactoryPassword `
 {
-
-    Assert $ArtifactoryUserName "Please provide ArtifactoryUserName property."
-    Assert $ArtifactoryPassword "Please provide ArtifactoryPassword property."
-
-    try
-    {
-        nuget sources Remove -Name Artifactory
-    }
-    catch
-    {
-        Write-Output $_.Exception.Message
-    }
-
-    Exec -cmd { nuget sources Add -Name Artifactory -Source $ArtifactorySource -UserName $ArtifactoryUserName -Password $ArtifactoryPassword -StorePasswordInClearText }
 }
 
 Task PushNuget -depends Pack, SetupArtifactory -description "Push NuGet package to artifactory" {
-
-    $symboldNuget = (Get-ChildItem ".\pack" | ? {$_.Name -match '.symbols.nupkg$'}).Name
-
-    Exec -cmd { nuget push ".\pack\$symboldNuget" -Source $ArtifactorySource$ArtifactoryFolder -ApiKey $ArtifactoryApiKey }
 }
 
 Task Clean -description "Deletes all bin folders" {
