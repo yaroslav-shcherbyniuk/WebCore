@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApplication", "WebApplication\WebApplication.xproj", "{9515FB1A-1EC9-4A3E-806C-BD9194205CC2}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApplicationTests", "WebApplicationTests\WebApplicationTests.xproj", "{0BF6E95E-CCBB-4FEC-8680-1D88C24E4C3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{858583A7-A880-4610-AECB-CA106F890E85}"
+	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
+		default.ps1 = default.ps1
+		devBuild.ps1 = devBuild.ps1
+		InstallTools.ps1 = InstallTools.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
