@@ -1,8 +1,8 @@
 properties {
     $buildNumber = 0
 
-    $project = ".\src\IpreoAccount.Common\project.json"
-    $unitTestsProject = ".\test\IpreoAccount.Common.Test\project.json"
+    $project = ".\src\ClassLibrary1\project.json"
+    $unitTestsProject = ".\test\TestClassLibrary1\project.json"
 
     $ArtifactoryUserName = $null
     $ArtifactoryPassword = $null
