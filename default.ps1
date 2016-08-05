@@ -27,13 +27,15 @@ function Test-Projects ([string] $Project)
 
 function UpdateVersionVariables ()
 {
-    If ($buildNumber -ne $null)
+    $script:versionSuffix = $null
+    $script:versionTag = $null
+    If ($buildNumber)
     {
         $script:versionSuffix = "build-" + $buildNumber.ToString().PadLeft(5,'0');
     }
     else 
     {
-        If ($tag -ne $null)
+        If ($tag)
         {
             $script:versionTag = $tag.Replace("release-", "").Replace("v.", "").Replace("v", "");
         }
@@ -88,7 +90,15 @@ Task Restore -description "Restores packages for all projects" {
 
 Task Build -depends Restore -description "Build project" {
     UpdateVersionVariables
-    Exec -cmd { dotnet build $project --version-suffix $versionSuffix }
+
+    If ($versionSuffix)
+    {
+        Exec -cmd { dotnet build $project --version-suffix $versionSuffix }
+    }
+    else
+    {
+        Exec -cmd { dotnet build $project }
+    }
 }
 
 Task UnitTest -depends Build -description "Runs unit tests" {
@@ -97,5 +107,17 @@ Task UnitTest -depends Build -description "Runs unit tests" {
 
 Task Pack -depends Build {
     UpdateVersionVariables
-    Exec -cmd { dotnet pack $project -o .\pack  --version-suffix $versionSuffix }
+
+    If ($versionSuffix)
+    {
+        Exec -cmd { dotnet pack $project -o .\pack --no-build --version-suffix $versionSuffix }
+
+        Write-Output "versionSuffix $versionSuffix"
+    }
+    else
+    {
+        Exec -cmd { dotnet pack $project -o .\pack --no-build }
+
+        Write-Output "versionTag $versionTag"
+    }
 }

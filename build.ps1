@@ -1,5 +1,5 @@
 Param(
-    [int]$buildNumber = $null,
+    [string]$buildNumber = $null,
     [string]$tag = $null,
     [string]$http_proxy = $env:http_proxy,
 
