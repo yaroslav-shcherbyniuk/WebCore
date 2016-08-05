@@ -1,5 +1,6 @@
 properties {
-    $buildNumber = 0
+    $buildNumber = $null
+    $tag = $null
 
     $project = ".\src\ClassLibrary1\project.json"
     $unitTestsProject = ".\test\TestClassLibrary1\project.json"
@@ -24,8 +25,26 @@ function Test-Projects ([string] $Project)
     Pop-Location
 }
 
+function UpdateVersionVariables ()
+{
+    If ($buildNumber -ne $null)
+    {
+        $script:versionSuffix = "build-" + $buildNumber.ToString().PadLeft(5,'0');
+    }
+    else 
+    {
+        If ($tag -ne $null)
+        {
+            $script:versionTag = $tag.Replace("release-", "").Replace("v.", "").Replace("v", "");
+        }
+        else
+        {
+            throw "buildNumber or tag should be specified"
+        }
+    }
+}
+
 TaskSetup {
-    $script:versionSuffix = "build-" + $buildNumber.ToString().PadLeft(5,'0');
     $script:ArtifactoryApiKey = $ArtifactoryUserName + ":" + $ArtifactoryPassword
 }
 
@@ -68,6 +87,7 @@ Task Restore -description "Restores packages for all projects" {
 }
 
 Task Build -depends Restore -description "Build project" {
+    UpdateVersionVariables
     Exec -cmd { dotnet build $project --version-suffix $versionSuffix }
 }
 
@@ -76,5 +96,6 @@ Task UnitTest -depends Build -description "Runs unit tests" {
 }
 
 Task Pack -depends Build {
+    UpdateVersionVariables
     Exec -cmd { dotnet pack $project -o .\pack  --version-suffix $versionSuffix }
 }

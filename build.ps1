@@ -9,10 +9,9 @@ Param(
 
 .\InstallTools.ps1 -proxyAddress $http_proxy
 
-Assert ($buildNumber -or $tag) "buildNumber or tag should be specified"
-
 Invoke-Psake -taskList Clean, UnitTest, Pack, SetupArtifactory, PushNuget -properties @{
     buildNumber=$buildNumber;
+    tag=$tag;
 
     ArtifactoryUserName=$ArtifactoryUserName;
     ArtifactoryPassword=$ArtifactoryPassword;
