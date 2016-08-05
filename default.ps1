@@ -42,7 +42,12 @@ function UpdateVersionVariables ()
             $projectVersion = ((Get-Content $project) -Join "`n" | ConvertFrom-Json).version;
             If ($versionTag -ne $projectVersion -and ($versionTag + "-*") -ne $projectVersion)
             {
-                throw "git tag is $tag , but version property in project.json is $projectVersion. Please update project version to $versionTag or $versionTag-* before tagging."
+                $nl = [Environment]::NewLine
+                throw "git tag is $tag , but version property in project.json is $projectVersion. $nl
+  Please update project version to $versionTag or $versionTag-* before tagging. $nl
+    You might also need to delete your tag: $nl
+    > git tag -d $tag $nl
+    > git push origin :refs/tags/$tag"
             }
         }
         else
