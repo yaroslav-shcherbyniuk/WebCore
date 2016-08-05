@@ -38,6 +38,12 @@ function UpdateVersionVariables ()
         If ($tag)
         {
             $script:versionTag = $tag.Replace("release-", "").Replace("v.", "").Replace("v", "");
+
+            $projectVersion = ((Get-Content $project) -Join "`n" | ConvertFrom-Json).version;
+            If ($versionTag -ne $projectVersion -and ($versionTag + "-*") -ne $projectVersion)
+            {
+                throw "git tag is $tag , but version property in project.json is $projectVersion. Please update project version to $versionTag or $versionTag-* before tagging."
+            }
         }
         else
         {
