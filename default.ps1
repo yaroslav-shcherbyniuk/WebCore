@@ -122,13 +122,9 @@ Task Pack -depends Build {
     If ($versionSuffix)
     {
         Exec -cmd { dotnet pack $project -o .\pack --no-build --version-suffix $versionSuffix }
-
-        Write-Output "versionSuffix $versionSuffix"
     }
     else
     {
         Exec -cmd { dotnet pack $project -o .\pack --no-build }
-
-        Write-Output "versionTag $versionTag"
     }
 }

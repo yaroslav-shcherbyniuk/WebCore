@@ -16,5 +16,3 @@ Invoke-Psake -taskList Clean, UnitTest, Pack, SetupArtifactory, PushNuget -prope
     ArtifactoryUserName=$ArtifactoryUserName;
     ArtifactoryPassword=$ArtifactoryPassword;
 }
-
-#if ($psake.build_success -eq $false) { exit 1 } else { exit 0 }
