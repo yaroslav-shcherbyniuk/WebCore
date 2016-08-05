@@ -1,5 +1,5 @@
 Param(
-    [int]$buildNumber = $env:BUILD_NUMBER,
+    [int]$buildNumber = $null,
     [string]$tag = $null,
     [string]$http_proxy = $env:http_proxy,
 
@@ -8,6 +8,8 @@ Param(
 )
 
 .\InstallTools.ps1 -proxyAddress $http_proxy
+
+Assert ($buildNumber -or $tag) "buildNumber or tag should be specified"
 
 Invoke-Psake -taskList Clean, UnitTest, Pack, SetupArtifactory, PushNuget -properties @{
     buildNumber=$buildNumber;
